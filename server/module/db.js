@@ -25,7 +25,6 @@ export async function executeQuery(query, binds = [], options = {}) {
     console.error('Error ejecutando la consulta:', err);
     throw err;
   } finally {
-    // Asegurarse de cerrar la conexión
     if (connection) {
       try {
         await connection.close();
