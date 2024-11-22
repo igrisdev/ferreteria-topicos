@@ -3,12 +3,12 @@ import cors from 'cors';
 
 import routerLogin from './controller/login.js'
 
-import { executeQuery } from './module/db.js';
+// import { executeQuery } from './module/db.js';
 
-const query = `SELECT * FROM producto`
-const result = await executeQuery(query)
-
-console.log(result.rows)
+// const query = `SELECT * FROM producto`
+// const result = await executeQuery(query)
+//
+// console.log(result.rows)
 
 const app = express()
 const port = 3000
