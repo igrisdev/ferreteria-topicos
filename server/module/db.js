@@ -3,7 +3,7 @@ import oracledb from 'oracledb';
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
 const dbConfig = {
-  user: 'system',
+  user: 'ALVAREZ_DB',
   password: '123456',
   connectString: 'DESKTOP-UKOJCVS:1521/XE'
 };
@@ -35,31 +35,3 @@ export async function executeQuery(query, binds = [], options = {}) {
   }
 }
 
-
-
-
-
-// import oracledb from 'oracledb';
-//
-// oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-//
-// const mypw = '123456';
-//
-// export async function run() {
-//   try {
-//     const connection = await oracledb.getConnection({
-//       user: 'system',
-//       password: mypw,
-//       connectString: 'DESKTOP-UKOJCVS:1521/XE'
-//     });
-//
-//     const result = await connection.execute(
-//       `SELECT * FROM producto`
-//     );
-//
-//     console.log(result.rows);
-//     connection.close();
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }

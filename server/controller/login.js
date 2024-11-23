@@ -1,9 +1,19 @@
 import { Router } from "express";
-const router = Router(); // Asegúrate de inicializar el router correctamente
+import { executeQuery } from "../module/db.js";
 
-// define the home page route
-router.get('/', function (req, res) {
-  res.send('Birds home page');
+const router = Router();
+
+router.post('/login', async function (req, res) {
+  const { username, password } = req.body
+
+  if (!username) return res.json("falta el username")
+  if (!password) return res.json("falta el password")
+
+  const query = `SELECT * FROM empleado`
+  const result = await executeQuery(query)
+  console.log(result.rows)
+
+  res.json(result.rows)
 });
 
-export default router; // Exporta el router correctamente
+export default router;

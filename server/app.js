@@ -4,8 +4,8 @@ import cors from 'cors';
 import routerLogin from './controller/login.js'
 
 // import { executeQuery } from './module/db.js';
-
-// const query = `SELECT * FROM producto`
+//
+// const query = `SELECT * FROM EMPLEADO`
 // const result = await executeQuery(query)
 //
 // console.log(result.rows)
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.use('/login', routerLogin)
+app.use('/api', routerLogin)
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`)
