@@ -2,13 +2,7 @@ import express from 'express'
 import cors from 'cors';
 
 import routerLogin from './controller/login.js'
-
-// import { executeQuery } from './module/db.js';
-//
-// const query = `SELECT * FROM EMPLEADO`
-// const result = await executeQuery(query)
-//
-// console.log(result.rows)
+import routerEmpleadoBodega from './controller/empleadoBodega.js'
 
 const app = express()
 const port = 3000
@@ -21,6 +15,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', routerLogin)
+app.use('/api', routerEmpleadoBodega)
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`)
