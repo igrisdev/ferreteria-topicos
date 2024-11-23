@@ -1,128 +1,151 @@
 ---
+
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 ---
 
 <Layout title="Login">
-	<main>
-	  <section class="login-container">
-		<h1>Bienvenido a la Ferretería Argelía</h1>
-		
-		<form class="login-form" id="loginForm">
-		  <div class="wave-group">
-			<input
-			  type="text"
-			  id="username"
-			  name="username"
-			  class="input"
-			  placeholder=" "
-			  required
-			/>
-			<label for="username" class="label">
-			  <span class="label-char" style="--index: 0">U</span>
-			  <span class="label-char" style="--index: 1">s</span>
-			  <span class="label-char" style="--index: 2">u</span>
-			  <span class="label-char" style="--index: 3">a</span>
-			  <span class="label-char" style="--index: 4">r</span>
-			  <span class="label-char" style="--index: 5">i</span>
-			  <span class="label-char" style="--index: 6">o</span>
-			</label>
-			<span class="bar"></span>
-		  </div>
-		  
-		  <div class="wave-group">
-			<input
-			  type="password"
-			  id="password"
-			  name="password"
-			  class="input"
-			  placeholder=" "
-			  required
-			/>
-			<label for="password" class="label">
-			  <span class="label-char" style="--index: 0">C</span>
-			  <span class="label-char" style="--index: 1">o</span>
-			  <span class="label-char" style="--index: 2">n</span>
-			  <span class="label-char" style="--index: 3">t</span>
-			  <span class="label-char" style="--index: 4">r</span>
-			  <span class="label-char" style="--index: 5">a</span>
-			  <span class="label-char" style="--index: 6">s</span>
-			  <span class="label-char" style="--index: 7">e</span>
-			  <span class="label-char" style="--index: 8">ñ</span>
-			  <span class="label-char" style="--index: 9">a</span>
-			</label>
-			<span class="bar"></span>
-		  </div>
+  <main class="container">
+    <section class="login-container">
+      <h1>Bienvenido a la Ferretería Argelía</h1>
 
-		  <button type="submit" class="login-button">Iniciar Sesión</button>
-		</form>
-	  </section>
-	</main>
-	<script>
-	  document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('loginForm');
+      <form class="login-form" id="loginForm">
+        <div class="wave-group">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="input"
+            placeholder=" "
+            required
+          />
+          <label for="username" class="label">
+            <span class="label-char" style="--index: 0">U</span>
+            <span class="label-char" style="--index: 1">s</span>
+            <span class="label-char" style="--index: 2">u</span>
+            <span class="label-char" style="--index: 3">a</span>
+            <span class="label-char" style="--index: 4">r</span>
+            <span class="label-char" style="--index: 5">i</span>
+            <span class="label-char" style="--index: 6">o</span>
+          </label>
+          <span class="bar"></span>
+        </div>
 
-  // Validar que form es un elemento de formulario
-  if (!(form instanceof HTMLFormElement)) {
-    console.error('El elemento no es un formulario válido');
-    return;
-  }
+        <div class="wave-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="input"
+            placeholder=" "
+            required
+          />
+          <label for="password" class="label">
+            <span class="label-char" style="--index: 0">C</span>
+            <span class="label-char" style="--index: 1">o</span>
+            <span class="label-char" style="--index: 2">n</span>
+            <span class="label-char" style="--index: 3">t</span>
+            <span class="label-char" style="--index: 4">r</span>
+            <span class="label-char" style="--index: 5">a</span>
+            <span class="label-char" style="--index: 6">s</span>
+            <span class="label-char" style="--index: 7">e</span>
+            <span class="label-char" style="--index: 8">ñ</span>
+            <span class="label-char" style="--index: 9">a</span>
+          </label>
+          <span class="bar"></span>
+        </div>
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Evita el envío predeterminado
+        <button type="submit" class="login-button">Iniciar Sesión</button>
+      </form>
+    </section>
+  </main>
 
-    // Captura de los datos del formulario
-    const formData = new FormData(form);
-    const data = {
-      username: formData.get('username'),
-      password: formData.get('password'),
-    };
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
 
-    try {
-      // Envío de datos con fetch
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      // Manejo de la respuesta
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Login exitoso:', result);
-        window.location.href = '/dashboard'; // Redirección en caso de éxito
-      } else {
-        console.error('Error en el login:', response.status);
-        alert('Usuario o contraseña incorrectos');
+      if (!(form instanceof HTMLFormElement)) {
+        console.error('El elemento no es un formulario válido');
+        return;
       }
-    } catch (error) {
-      console.error('Error en la conexión:', error);
-      alert('Ocurrió un error, por favor intenta nuevamente.');
-    }
-  });
-});
 
-	</script>
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const data = {
+          username: formData.get('username'),
+          password: formData.get('password'),
+        };
+
+        try {
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            console.log('Login exitoso:', result);
+            window.location.href = '/dashboard';
+          } else {
+            console.error('Error en el login:', response.status);
+            alert('Usuario o contraseña incorrectos');
+          }
+        } catch (error) {
+          console.error('Error en la conexión:', error);
+          alert('Ocurrió un error, por favor intenta nuevamente.');
+        }
+      });
+    });
+  </script>
 </Layout>
 
-
 <style>
-  main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	background: linear-gradient(135deg, #ffffff, #ffffff);
-	color: rgb(255, 255, 255);
+  .container {
+    width: 100%;
+    height: 100vh;
+    --color: #E1E1E1;
+    background-color: #F3F3F3;
+    background-image: linear-gradient(
+        0deg,
+        transparent 24%,
+        var(--color) 25%,
+        var(--color) 26%,
+        transparent 27%,
+        transparent 74%,
+        var(--color) 75%,
+        var(--color) 76%,
+        transparent 77%,
+        transparent
+      ),
+      linear-gradient(
+        90deg,
+        transparent 24%,
+        var(--color) 25%,
+        var(--color) 26%,
+        transparent 27%,
+        transparent 74%,
+        var(--color) 75%,
+        var(--color) 76%,
+        transparent 77%,
+        transparent
+      );
+    background-size: 55px 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
 
   .login-container {
 	background: rgba(0, 0, 0, 0.75);
 	padding: 2rem;
-	border-radius: 10px;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	border-radius: 15px;
+	box-shadow: 1 5px 15px rgba(0, 0, 0, 0.3);
 	width: 100%;
 	max-width: 400px;
 	text-align: center;
@@ -131,7 +154,7 @@ import Card from '../components/Card.astro';
   .login-container h1 {
 	margin-bottom: 4rem;
 	font-size: 3rem;
-	color: #00A97F;
+	color: #388E3C;
   }
 
   .login-form {
@@ -169,6 +192,7 @@ import Card from '../components/Card.astro';
 	left: 5px;
 	top: 10px;
 	display: flex;
+
   }
 
   .wave-group .label-char {
@@ -180,7 +204,7 @@ import Card from '../components/Card.astro';
   .wave-group .input:valid ~ .label .label-char {
 	transform: translateY(-20px);
 	font-size: 14px;
-	color: #00A97F;
+	color: #388E3C;
   }
 
   .wave-group .bar {
@@ -196,7 +220,7 @@ import Card from '../components/Card.astro';
 	width: 0;
 	bottom: 1px;
 	position: absolute;
-	background: #00A97F;
+	background: #388E3C;
 	transition: 0.2s ease all;
   }
 
@@ -214,7 +238,7 @@ import Card from '../components/Card.astro';
   }
 
   .login-button {
-	--color: #00A97F;
+	--color: #388E3C;
 	padding: 0.8em 1.7em;
 	background-color: transparent;
 	border-radius: 0.3em;
