@@ -1,31 +1,8 @@
-import { executeQuery } from '../module/db.js'
+import { Router } from "express";
+import { login } from "../controller/loginController.js";
 
-export async function loginRouter(req, res) {
-  const { username, password } = req.body
+const router = Router();
 
-  if (!username) return res.json("falta el username")
-  if (!password) return res.json("falta el password")
+router.post('/login', login);
 
-  const queryEmpleado = `SELECT * FROM empleado WHERE username = :username AND password = :password`
-
-  let result
-  const bindsEmpleado = { username, password }
-  result = await executeQuery(queryEmpleado, bindsEmpleado)
-
-  if (result.rows.length > 0) {
-    res.json({ ok: true, message: result.rows[0].CARGO })
-    return
-  }
-
-  const queryAdmin = `SELECT * FROM administrador WHERE username = :username AND password = :password`
-
-  const bindsAdmin = { username, password }
-  result = await executeQuery(queryAdmin, bindsAdmin)
-
-  if (result.rows.length > 0) {
-    res.json({ ok: true, message: result.rows[0].CARGO })
-    return
-  }
-
-  res.json({ ok: false, message: 'Usuario no encontrado' })
-}
+export default router;
