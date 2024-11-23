@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors';
 
-import routerLogin from './controller/login.js'
-import routerEmpleadoBodega from './controller/empleadoBodega.js'
+import routerLogin from './router/loginRouter.js'
+import routerEmpleadoBodega from './router/empleadoBodegaRouter.js'
 
 const app = express()
 const port = 3000
