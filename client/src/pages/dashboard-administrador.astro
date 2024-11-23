@@ -1,9 +1,116 @@
 ---
+// Importamos el layout base para reutilizar la estructura general.
 import LayoutAdministrador from "../layouts/LayoutAdministrador.astro";
 ---
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
 
 <LayoutAdministrador title="Dashboard Administrador">
-	<main>
-		<h1>Dashboard Administrador</h1>
-	</main>
+  <main class="dashboard-admin">
+    <!-- Barra de navegación superior -->
+    <header class="navbar">
+      <div class="app-name">Ferreteria Argelia</div>
+      <nav class="nav-links">
+        <a href="/clientes" class="nav-item">Clientes</a>
+        <a href="/proveedores" class="nav-item">Proveedores</a>
+        <a href="/productos" class="nav-item">Productos</a>
+      </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <section class="content">
+      <h1>Bienvenido al Dashboard de Administrador</h1>
+      <p>Selecciona una de las opciones en la barra de navegacion para comenzar.</p>
+    </section>
+  </main>
 </LayoutAdministrador>
+
+
+<style>/* General Styling */
+    .dashboard-admin {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #4CAF50, #388E3C); /* Degradado moderno */
+      color: white;
+      padding: 15px 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .app-name {
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-right: auto; /* Asegura que el texto de la app quede a la izquierda */
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      flex: 1; /* Usa el espacio restante para centrar el contenido */
+      gap: 50px; /* Espaciado entre los elementos */
+    }
+    
+    .nav-item {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 8px 15px;
+      transition: all 0.3s ease-in-out;
+      border-radius: 4px;
+    }
+    
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+    
+    /* Contenido Principal */
+    .content {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: #F4F4F9;
+      min-height: calc(100vh - 80px); /* Ajusta el contenido bajo la barra */
+    }
+    
+    h1 {
+      color: #388E3C;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      color: #666;
+      font-size: 18px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        gap: 15px;
+      }
+    
+      .nav-item {
+        font-size: 16px;
+      }
+    
+      .app-name {
+        font-size: 20px;
+      }
+    }
+</style>

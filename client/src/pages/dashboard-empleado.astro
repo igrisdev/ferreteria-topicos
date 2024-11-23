@@ -1,0 +1,185 @@
+---
+// Importamos el layout base para reutilizar la estructura general.
+import LayoutAdministrador from "../layouts/LayoutAdministrador.astro";
+---
+
+<LayoutAdministrador title="Dashboard Empleado Bodega">
+  <main class="dashboard-bodega">
+    <!-- Barra de navegación superior -->
+    <header class="navbar">
+      <div class="app-name">Ferretería Argelia</div>
+      <nav class="nav-links">
+        <a href="#productos" class="nav-item">Productos</a>
+        <a href="#proveedores" class="nav-item">Proveedores</a>
+      </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <section class="content">
+      <h1>Panel de Bodega</h1>
+      <p>Gestiona los datos de productos y proveedores.</p>
+
+      <!-- Sección de acciones para Productos -->
+      <div id="productos" class="card">
+        <h2>Gestión de Productos</h2>
+        <div class="actions">
+          <button class="action-button">Ver Productos</button>
+          <button class="action-button">Registrar Producto</button>
+          <button class="action-button">Modificar Producto</button>
+          <button class="action-button delete">Eliminar Producto</button>
+        </div>
+      </div>
+
+      <!-- Sección de acciones para Proveedores -->
+      <div id="proveedores" class="card">
+        <h2>Gestión de Proveedores</h2>
+        <div class="actions">
+          <button class="action-button">Ver Proveedores</button>
+          <button class="action-button">Registrar Proveedor</button>
+          <button class="action-button">Modificar Proveedor</button>
+          <button class="action-button delete">Eliminar Proveedor</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</LayoutAdministrador>
+
+<style>
+    /* General Styling */
+.dashboard-bodega {
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #4CAF50, #388E3C);
+  color: white;
+  padding: 15px 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-name {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: auto;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 50px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 15px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Contenido Principal */
+.content {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #F4F4F9;
+  min-height: calc(100vh - 80px);
+}
+
+h1 {
+  color: #388E3C;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #666;
+  font-size: 18px;
+}
+
+/* Tarjetas */
+.card {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
+
+.card h2 {
+  color: #388E3C;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #4CAF50;
+  color: white;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.action-button:hover {
+  background: #388E3C;
+  transform: scale(1.05);
+}
+
+.action-button.delete {
+  background: #E53935;
+}
+
+.action-button.delete:hover {
+  background: #B71C1C;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-item {
+    font-size: 16px;
+  }
+
+  .app-name {
+    font-size: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}
+
+</style>
