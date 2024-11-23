@@ -95,10 +95,10 @@ import Card from '../components/Card.astro';
         if (result.ok) {
           if (result.message === 'administrador') {
             // Redirige a la ruta para administradores
-            window.location.href = '/admin/dashboard';
-          } else if (result.message === 'empleado') {
+            window.location.href = '/dashboard-administrador';
+          } else if (result.message === 'bodega') {
             // Redirige a la ruta para empleados
-            window.location.href = '/employee/dashboard';
+            window.location.href = '/dashboard-empleado';
           }
         } else {
           // Muestra un mensaje si el usuario no fue encontrado
