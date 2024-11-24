@@ -1,44 +1,54 @@
 ---
 import LayoutAdministrador from "../layouts/LayoutAdministrador.astro";
 
-async function getProveedor  () {
-  const data = await fetch('http://localhost:3000/api/proveedor-bodega')
+async function getEmpleados  () {
+  const data = await fetch('http://localhost:3000/api/empleados-admin')
 
   const restult = await data.json()
 
   return restult.data
 }
 
-const proveedor = await getProveedor()
+const empleados = await getEmpleados()
 ---
 
-<LayoutAdministrador title="Dashboard Proveedor Bodega">
+<LayoutAdministrador title="Dashboard Empleados">
   <main class="dashboard-bodega">
     <section class="content">
 
       <div style={"display:flex; justify-content: space-between;"} >
-        <h2>Sección de Proveedor</h2>
+        <h2>Sección de empleados</h2>
 
-<button class="btn show-form-btn" onclick="toggleForm()">Crear Proveedor</button>
+<button class="btn show-form-btn" onclick="toggleForm()">Crear empleados</button>
       </div>
 
       <div>
 <table class="product-table">
     <thead>
       <tr>
-        <th>ID Proovedor</th>
+        <th>ID Empleado</th>
+        <th>Salario</th>
+        <th>Cargo</th>
+        <th>Despedido</th>
+        <th>Id Ferreteria</th>
         <th>ID Persona</th>
-              <th>Nombre</th>
-              <th>Acciones</th>
+        <th>Usuario</th>
+        <th>Contraseña</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-        {proveedor.map(item => (
+        {empleados.map(item => (
       <tr>
-              <td>{item.ID_PROVEEDOR}</td>
+              <td>{item.ID_EMPLEADO}</td>
+              <td>{item.ID_SALARIO}</td>
+              <td>{item.CARGO}</td>
+              <td>{item.DESPEDIDO}</td>
+              <td>{item.ID_FERRETERIA}</td>
               <td>{item.ID_PERSONA}</td>
-              <td>{item.NOMBRE}</td>
-              <td><button class="delete-btn" data-value={item.ID_PROVEEDOR}>Eliminar</button></td>
+              <td>{item.USERNAME}</td>
+              <td>{item.PASSWORD}</td>
+              <td><button class="delete-btn" data-value={item.ID_EMPLEADO}>Eliminar</button></td>
       </tr>
         ))}
     </tbody>
@@ -48,20 +58,41 @@ const proveedor = await getProveedor()
 
 
   <div class="form-container" id="productForm">
-    <h2>Crear proveedor</h2>
+    <h2>Crear empleado</h2>
     <form id="createProductForm">
       <div class="form-group">
-        <label for="id_proveedor">ID proveedor</label>
-        <input type="number" id="id_proveedor" name="id_proveedor" required>
+        <label for="id_empleado">ID empleado</label>
+        <input type="number" id="id_empleado" name="id_empleado" required>
       </div>
       <div class="form-group">
-        <label for="persona_id">ID persona</label>
-        <input type="number" id="persona_id" name="persona_id" required>
+        <label for="salario">salario</label>
+        <input type="number" id="salario" name="salario" required>
       </div>
       <div class="form-group">
-        <label for="nombre">Nombre proveedor</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <label for="cargo">cargo</label>
+        <input type="text" id="cargo" name="cargo" required>
       </div>
+      <div class="form-group">
+        <label for="despedido">despedido</label>
+        <input type="text" id="despedido" name="despedido" required>
+      </div>
+      <div class="form-group">
+        <label for="id_ferreteria">id ferreteria</label>
+        <input type="number" id="id_ferreteria" name="id_ferreteria" required>
+      </div>
+      <div class="form-group">
+        <label for="id_persona">id persona</label>
+        <input type="number" id="id_persona" name="id_persona" required>
+      </div>
+      <div class="form-group">
+        <label for="username">username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+     
       <button type="submit" class="btn">Enviar</button>
       <button type="button" class="btn btn-danger" onclick="toggleForm()">Cancelar</button>
     </form>
@@ -81,7 +112,7 @@ buttonsDelete.forEach(button => {
   button.addEventListener('click', (e) => {
     const id = button.dataset.value
 
-fetch('http://localhost:3000/api/proveedor-bodega', {
+fetch('http://localhost:3000/api/empleados-admin', {
   method: "DELETE",
   headers: {
     "Content-Type": "application/json"
@@ -95,11 +126,11 @@ fetch('http://localhost:3000/api/proveedor-bodega', {
     return response.json();
   })
   .then(data => {
-        console.log("Proveedor eliminado:", data);
+        console.log("empleado eliminado:", data);
         location.reload();
   })
   .catch(error => {
-    console.error("Error al eliminar el Proveedor:", error);
+    console.error("Error al eliminar el empleado:", error);
   });
   })
 
@@ -114,14 +145,19 @@ function toggleForm() {
       event.preventDefault();
 
       const data = {
-        id: document.getElementById('id_proveedor').value,
-        persona_id: document.getElementById('persona_id').value,
-        nombre: document.getElementById('nombre').value,
+        id: document.getElementById('id_empleado').value,
+        salario: document.getElementById('salario').value,
+        cargo: document.getElementById('cargo').value,
+        despedido: document.getElementById('despedido').value,
+        id_ferreteria: document.getElementById('id_ferreteria').value,
+        id_persona: document.getElementById('id_persona').value,
+        username: document.getElementById('username').value,  
+        password: document.getElementById('password').value,
       };
 
       console.log(data)
 
-      fetch('http://localhost:3000/api/proveedor-bodega', {
+      fetch('http://localhost:3000/api/empleados-admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -135,12 +171,12 @@ function toggleForm() {
         return response.json();
       })
       .then(data => {
-        alert('Producto creado exitosamente');
+        alert('Empleado creado exitosamente');
         toggleForm(); // Ocultar el formulario
       })
       .catch(error => {
-        console.error('Error al crear el producto:', error);
-        alert('Hubo un error al crear el producto.');
+        console.error('Error al crear el empleado:', error);
+        alert('Hubo un error al crear el empleado.');
       });
     });
 </script>
