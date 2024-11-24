@@ -1,5 +1,5 @@
 ---
-import LayoutEmpleado from "../layouts/LayoutEmpleado.astro";
+import LayoutAdministrador from "../layouts/LayoutAdministrador.astro";
 
 async function getProveedor  () {
   const data = await fetch('http://localhost:3000/api/proveedor-bodega')
@@ -12,7 +12,7 @@ async function getProveedor  () {
 const proveedor = await getProveedor()
 ---
 
-<LayoutEmpleado title="Dashboard Proveedor Bodega">
+<LayoutAdministrador title="Dashboard Proveedor Bodega">
   <main class="dashboard-bodega">
     <section class="content">
 
@@ -68,7 +68,7 @@ const proveedor = await getProveedor()
   </div>
 
   </main>
-</LayoutEmpleado>
+</LayoutAdministrador>
 
 <script is:inline>
 

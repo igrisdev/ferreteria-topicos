@@ -1,44 +1,52 @@
 ---
-import LayoutEmpleado from "../layouts/LayoutEmpleado.astro";
+import LayoutAdministrador from "../layouts/LayoutAdministrador.astro";
 
-async function getProveedor  () {
-  const data = await fetch('http://localhost:3000/api/proveedor-bodega')
+async function getProductos  () {
+  const data = await fetch('http://localhost:3000/api/empleado-bodega')
 
   const restult = await data.json()
 
   return restult.data
 }
 
-const proveedor = await getProveedor()
+const productos = await getProductos()
 ---
 
-<LayoutEmpleado title="Dashboard Proveedor Bodega">
+<LayoutAdministrador title="Dashboard Empleado Bodega">
   <main class="dashboard-bodega">
     <section class="content">
 
       <div style={"display:flex; justify-content: space-between;"} >
-        <h2>Sección de Proveedor</h2>
+        <h2>Sección de Productos</h2>
 
-<button class="btn show-form-btn" onclick="toggleForm()">Crear Proveedor</button>
+<button class="btn show-form-btn" onclick="toggleForm()">Crear Producto</button>
       </div>
 
       <div>
 <table class="product-table">
     <thead>
       <tr>
-        <th>ID Proovedor</th>
-        <th>ID Persona</th>
-              <th>Nombre</th>
-              <th>Acciones</th>
+        <th>ID Producto</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>ID Categoría</th>
+        <th>ID Ferretería</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-        {proveedor.map(item => (
+        {productos.map(item => (
       <tr>
-              <td>{item.ID_PROVEEDOR}</td>
-              <td>{item.ID_PERSONA}</td>
-              <td>{item.NOMBRE}</td>
-              <td><button class="delete-btn" data-value={item.ID_PROVEEDOR}>Eliminar</button></td>
+              <td>{item.ID_PRODUCTO}</td>
+              <td>{item.NOMBRE_PRODUCTO}</td>
+              <td>{item.MARCA}</td>
+              <td>${item.PRECIO}</td>
+              <td>{item.DESCRIPCION_PRODUCTO}</td>
+              <td>{item.ID_CATEGORIA}</td>
+              <td>{item.ID_FERRETERIA}</td>
+              <td><button class="delete-btn" data-value={item.ID_PRODUCTO}>Eliminar</button></td>
       </tr>
         ))}
     </tbody>
@@ -48,19 +56,35 @@ const proveedor = await getProveedor()
 
 
   <div class="form-container" id="productForm">
-    <h2>Crear proveedor</h2>
+    <h2>Crear Producto</h2>
     <form id="createProductForm">
       <div class="form-group">
-        <label for="id_proveedor">ID proveedor</label>
-        <input type="number" id="id_proveedor" name="id_proveedor" required>
+        <label for="id_producto">ID Producto</label>
+        <input type="number" id="id_producto" name="id_producto" required>
       </div>
       <div class="form-group">
-        <label for="persona_id">ID persona</label>
-        <input type="number" id="persona_id" name="persona_id" required>
+        <label for="nombre_producto">Nombre Producto</label>
+        <input type="text" id="nombre_producto" name="nombre_producto" required>
       </div>
       <div class="form-group">
-        <label for="nombre">Nombre proveedor</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <label for="marca">Marca</label>
+        <input type="text" id="marca" name="marca" required>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" name="precio" step="0.01" required>
+      </div>
+      <div class="form-group">
+        <label for="descripcion_producto">Descripción Producto</label>
+        <input type="text" id="descripcion_producto" name="descripcion_producto" required>
+      </div>
+      <div class="form-group">
+        <label for="id_categoria">ID Categoría</label>
+        <input type="number" id="id_categoria" name="id_categoria" required>
+      </div>
+      <div class="form-group">
+        <label for="id_ferreteria">ID Ferretería</label>
+        <input type="number" id="id_ferreteria" name="id_ferreteria" required>
       </div>
       <button type="submit" class="btn">Enviar</button>
       <button type="button" class="btn btn-danger" onclick="toggleForm()">Cancelar</button>
@@ -68,7 +92,7 @@ const proveedor = await getProveedor()
   </div>
 
   </main>
-</LayoutEmpleado>
+</LayoutAdministrador>
 
 <script is:inline>
 
@@ -81,7 +105,7 @@ buttonsDelete.forEach(button => {
   button.addEventListener('click', (e) => {
     const id = button.dataset.value
 
-fetch('http://localhost:3000/api/proveedor-bodega', {
+fetch('http://localhost:3000/api/empleado-bodega', {
   method: "DELETE",
   headers: {
     "Content-Type": "application/json"
@@ -95,11 +119,11 @@ fetch('http://localhost:3000/api/proveedor-bodega', {
     return response.json();
   })
   .then(data => {
-        console.log("Proveedor eliminado:", data);
+        console.log("Empleado eliminado:", data);
         location.reload();
   })
   .catch(error => {
-    console.error("Error al eliminar el Proveedor:", error);
+    console.error("Error al eliminar el empleado:", error);
   });
   })
 
@@ -108,20 +132,22 @@ fetch('http://localhost:3000/api/proveedor-bodega', {
 function toggleForm() {
       const form = document.getElementById('productForm');
       form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
-}
+    }
 
     document.getElementById('createProductForm').addEventListener('submit', function (event) {
       event.preventDefault();
 
       const data = {
-        id: document.getElementById('id_proveedor').value,
-        persona_id: document.getElementById('persona_id').value,
-        nombre: document.getElementById('nombre').value,
+        id: document.getElementById('id_producto').value,
+        nombre: document.getElementById('nombre_producto').value,
+        marca: document.getElementById('marca').value,
+        precio: parseFloat(document.getElementById('precio').value),
+        descripcion: document.getElementById('descripcion_producto').value,
+        categoria_id: document.getElementById('id_categoria').value,
+        ferreteria_id: document.getElementById('id_ferreteria').value,
       };
 
-      console.log(data)
-
-      fetch('http://localhost:3000/api/proveedor-bodega', {
+      fetch('http://localhost:3000/api/empleado-bodega', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
