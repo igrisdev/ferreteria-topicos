@@ -111,7 +111,7 @@ export async function eliminarEmpleados(req, res) {
   };
 
   try {
-    const result = await executeQuery(query, binds);
+    const result = await executeQuery(query, binds, { autoCommit: true });
 
     res.status(200).json({
       ok: true,
@@ -123,7 +123,7 @@ export async function eliminarEmpleados(req, res) {
 
     res.status(500).json({
       ok: false,
-      message: "Error al eliminar el empleado",
+      message: "Error al eliminar el producto",
       error: err.message,
     });
   }
